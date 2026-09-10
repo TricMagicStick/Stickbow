@@ -1,7 +1,7 @@
 # Stickbow build playbook (from Bowch writeup)
 
 Source: https://www.spritefusion.com/blog/making-a-game-boy-advance-game-with-gpt-6-astra  
-We steal the **engineering recipe**, not their name, art API, or medieval characters.
+We steal the **engineering recipe**, not their name, art API, or exact characters.
 
 ## Copy (do this)
 - GBA 240×160, freestanding C + ARM asm, fixed-point physics, ~60 Hz
@@ -19,23 +19,24 @@ We steal the **engineering recipe**, not their name, art API, or medieval charac
 ## Change (Stickbow locks)
 | Bowch | Stickbow |
 |-------|----------|
-| Sprite Fusion paid API art | Pico stick figures + dusk BG (free) |
+| Sprite Fusion paid API art | Pico hand pixels, free tier only |
 | Left/Right = power, A = shoot | **Hold A = charge power bar, release A = fire** |
 | Up/Down = angle | Up/Down = angle (same) |
-| Medieval hooded / Iron Stag | Black stick / maroon stick |
-| Blood/leaves day-one | P3 juice only (pace through the week) |
+| Green hood / Iron Stag | **Our hunter vs soldier** (see ART.md) — not sticks for ship |
+| Blood/leaves day-one | Juice later (pace through the week) |
 
 ## Phase mapping (paced)
-| Day | Slice | Bowch prompt chunk |
-|-----|-------|--------------------|
-| Thu | Toolchain + first boot ROM + charge bar stub | initial prompt skeleton |
-| Fri | Arc physics + wind + camera follow | projectile physics |
-| Mon | Hits + HP + best-of-3 | game loop HP rules |
-| Tue | AI + difficulty | enemy aiming errors |
-| Wed | Menus + scout R + last-shot trace | controls/camera |
-| next week | Recoil/trail/shake/wind glyphs | “Improve game feel” juice |
+| Day | Slice |
+|-----|-------|
+| Thu | Toolchain + boot ROM + charge bar stub (stick placeholders OK) |
+| Fri | Arc physics + wind + camera follow |
+| Mon | Hits + HP + best-of-3 |
+| Tue | AI + difficulty |
+| Wed | Menus + scout R + last-shot trace |
+| later | **Hunter/soldier sprite swap** (Pico) then juice |
 
 ## Do not
 - Call Sprite Fusion or any paid art API
 - Port Bowch ROM binary / claim their assets
+- Ship final build with stick figures
 - Implement the entire juice list in one session
