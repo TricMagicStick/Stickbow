@@ -1,0 +1,7 @@
+build/
+*.elf
+*.map
+*.o
+*.gba
+!releases/.gitkeep
+.DS_Store
