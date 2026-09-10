@@ -1,29 +1,24 @@
-# Stickbow status — 2026-09-09 evening (PT)
+# Stickbow status — 2026-09-10 morning stand-up (PT)
 
-## P0 tonight — documented + partial push ✅
-On **GitHub `main`**: `README.md`, `DESIGN.md`, `STATUS.md`, `ROADMAP.md`, `Makefile`, `gba_cart.ld`, `.gitignore`, `releases/`, `src/types.h`, `src/main.c`, `src/game.h`.
+## Phase
+**P0 closing → P1 duel core.** Thu slice done: toolchain + first `.gba` on box.
 
-On **scaffold box** (`/workspace/stickbow/`) — complete local tree, not fully pushed yet:
-- Full duel logic: `game.c`, `physics.*`, `fighter.*`, `ai.*`, `gfx.*`, `input.*`, `fixed.*`, `crt0.s`
-- Pico art wired: `src/sprites.c` (~400KB RGB15) + `src/sprites.h` + blitters
-- Master art: `assets/*.png` + `assets/*.b64` sidecars
-- Tools: `tools/gbafix.py`, `tools/png_to_sprites.py`
+## Today's slice (done)
+1. Installed `gcc-arm-none-eabi` + `binutils-arm-none-eabi` + `make` on the box
+2. Fixed `gba_cart.ld` (MEMORY region spacing for binutils 2.44)
+3. Linked `-lgcc` for `__aeabi_*` helpers; fixed `ai_seed` hex typo in `game.c`
+4. **Built** `releases/stickbow.gba` (~101 KB, title STICKBOW / SB01 via `tools/gbafix.py`)
+   - ELF: text 103836 / data 4 / bss 152
 
-## Implemented locally (ready to push P1)
-- Mode 3 bare-metal C; aim angle → power meter → flight (gravity + wind)
-- Hit zones head/body; 3 HP; best-of-3; enemy AI turn
-- Pico poses idle/draw/release + dusk BG + arrows
+## Still local-only (not all on GitHub yet)
+Full duel sources + Pico `sprites.c` (~400KB) + `assets/` + `tools/` live under `/workspace/stickbow/`. GitHub `main` still has stubs (`main.c`, `types.h`, `game.h`) plus docs/Makefile/ld.
 
-## Blocked
-- No DevKitARM / `gcc-arm-none-eabi` on box → **no `.gba` ROM tonight**
-- MCP push of large `sprites.c` / remaining sources deferred (paced week)
+## Deferred (pace)
+- **Fri:** push remaining `src/*` / `tools/*` / assets (split `sprites.c` if needed); mGBA smoke (no mGBA on box yet); aim+charge bar polish per Fri phase map
+- HP model (DESIGN 100 vs MVP 3)
+- Hunter/soldier redraw — **locked closed** until ROM boots for Tyson and a day slice says so
+- Pico: no art ask today
 
-## Note — design vs code HP
-`DESIGN.md` targets 100 HP / 30–45 dmg. Local MVP uses **3 HP**, headshot KO, body −1 (simpler GBA feel). Align in P1 stand-up.
-
-## P1 — tomorrow stand-up
-1. Push remaining `src/*`, `tools/*`, `assets/*.b64` via GitHub MCP
-2. Push `src/sprites.c` (or split BG into own TU if size-limited)
-3. DevKitPro build → `releases/stickbow.gba`
-4. mGBA smoke test; tune physics/hitboxes to 32×48 sprites
-5. Decide HP model (DESIGN 100 vs MVP 3)
+## Locks (unchanged)
+- Controls: hold A charge bar → release fires; gravity arc; Up/Down angle
+- Art: sticks are placeholders; final cast hunter vs soldier

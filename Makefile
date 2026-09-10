@@ -56,7 +56,7 @@ $(BUILD)/%.o: $(SRC)/%.s | $(BUILD)
 	$(CC) $(ASFLAGS) -c $< -o $@
 
 $(BUILD)/$(TARGET).elf: $(OBJS) gba_cart.ld
-	$(CC) $(LDFLAGS) -o $@ $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $(OBJS) -lgcc
 	$(SIZE) $@
 
 $(TARGET).gba: $(BUILD)/$(TARGET).elf

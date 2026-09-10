@@ -3,9 +3,9 @@ OUTPUT_ARCH(arm)
 ENTRY(_start)
 
 MEMORY {
-    rom  : ORIGIN = 0x08000000, LENGTH = 32M
-    iwram: ORIGIN = 0x03000000, LENGTH = 32K
-    ewram: ORIGIN = 0x02000000, LENGTH = 256K
+    rom   : ORIGIN = 0x08000000, LENGTH = 32M
+    iwram : ORIGIN = 0x03000000, LENGTH = 32K
+    ewram : ORIGIN = 0x02000000, LENGTH = 256K
 }
 
 __sp_irq = 0x03007FA0;
@@ -19,13 +19,13 @@ SECTIONS {
         . = ALIGN(4);
     } > rom
 
-    __iwram_lma = LOADADDR(.iwram);
     .iwram : {
         __iwram_start__ = .;
         *(.iwram*)
         . = ALIGN(4);
         __iwram_end__ = .;
     } > iwram AT > rom
+    __iwram_lma = LOADADDR(.iwram);
 
     .data : {
         __data_start__ = .;
